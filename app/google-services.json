@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1011365077014",
+    "firebase_url": "https://lyst-45fc1.firebaseio.com",
+    "project_id": "lyst-45fc1",
+    "storage_bucket": "lyst-45fc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011365077014:android:bf1837534c50fe18bdd537",
+        "android_client_info": {
+          "package_name": "com.example.lyst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011365077014-1tj2fcms6k1ooatdf3eq6098dc22gv94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYTqddmPy_nDTL1wR4G7ISI34FC_mAKns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011365077014-1tj2fcms6k1ooatdf3eq6098dc22gv94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
