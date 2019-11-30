@@ -57,7 +57,7 @@ public class Database {
         return auth.getCurrentUser();
     }
 
-    public ArrayList<String> getChecklistItemsFromUser() {
-
-    }
+//    public ArrayList<String> getChecklistItemsFromUser() {
+//
+//    }
 }

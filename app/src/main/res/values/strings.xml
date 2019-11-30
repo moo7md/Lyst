@@ -14,4 +14,10 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    
+    
+    <string name="SignUp">Sign Up</string>
+    <string name="email">ِEmail</string>
+    <string name="username">Username</string>
+    <string name="cancel">Cancel</string>
 </resources>
