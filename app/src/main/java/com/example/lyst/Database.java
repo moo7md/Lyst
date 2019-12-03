@@ -1,31 +1,27 @@
 package com.example.lyst;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
 
 public class Database {
 
-    private FirebaseAuth auth;
-    private FirebaseFirestore db;
+    public FirebaseAuth auth;
+    public FirebaseFirestore db;
 
-    public Database database;
+    private static Database database;
 
     private Database() {
         auth = FirebaseAuth.getInstance();
         db   = FirebaseFirestore.getInstance();
     }
 
-    public Database getInstance() {
+    public static Database getInstance() {
         if (database == null) {
             database = new Database();
         }
-        return this.database;
+        return database;
     }
 
     /**
@@ -56,8 +52,4 @@ public class Database {
     public FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
     }
-
-//    public ArrayList<String> getChecklistItemsFromUser() {
-//
-//    }
 }
