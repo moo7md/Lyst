@@ -1,8 +1,12 @@
 package com.example.lyst;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Database {
@@ -51,5 +55,11 @@ public class Database {
      */
     public FirebaseUser getCurrentUser() {
         return auth.getCurrentUser();
+    }
+
+    public Task<Void> addCheckListItems(ArrayList<ChecklistItem> items, String id){
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("items", items);
+        return db.collection("items").document(id).set(data);
     }
 }

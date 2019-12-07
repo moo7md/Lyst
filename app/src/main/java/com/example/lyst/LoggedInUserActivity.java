@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.Transaction;
 
@@ -49,6 +51,16 @@ public class LoggedInUserActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.title)).setText(R.string.myList);
         Fragment myList = MyLists.newInstance();
         openFragment(myList);
+
+        FloatingActionButton btn = findViewById(R.id.addBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), CreateCheckListActivity.class);
+                i.putExtra("uid", uid);
+                startActivity(i);
+            }
+        });
     }
 
     private void setUID() {

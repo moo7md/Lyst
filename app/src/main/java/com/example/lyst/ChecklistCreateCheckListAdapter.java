@@ -34,11 +34,6 @@ public class ChecklistCreateCheckListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        holder = (ChecklistItemCreateViewHolder) holder;
-        if (!items.isEmpty()) {
-//            holder.itemView
-        }
-
     }
 
     @Override
@@ -47,7 +42,7 @@ public class ChecklistCreateCheckListAdapter extends RecyclerView.Adapter {
     }
 
     public void AddItem() {
-        items.add(new ChecklistItem(UUID.randomUUID().toString(), "T", "", "", ""));
+        items.add(new ChecklistItem("T", "", ""));
 //        notifyItemInserted(items.size()-1);
         notifyDataSetChanged();
     }
