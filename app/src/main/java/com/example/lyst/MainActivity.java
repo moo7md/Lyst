@@ -26,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, SignupActivity.class);
             i.putExtra("uid", uid);
             startActivity(i);
-        }else{
+        } else{
             //show message
         }
+    }
+
+    public void create(View view) {
+        Intent i = new Intent(this, CreateCheckListActivity.class);
+        startActivity(i);
     }
 }
