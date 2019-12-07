@@ -29,7 +29,7 @@ public class Database {
      * @return true if user is logged in and false if not.
      */
     public boolean isLoggedIn() {
-        return auth.getCurrentUser() == null;
+        return auth.getCurrentUser() != null;
     }
 
     /**
