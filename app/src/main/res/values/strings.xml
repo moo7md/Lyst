@@ -17,10 +17,17 @@
 
 
     <string name="SignUp">Sign Up</string>
+    <string name="login">Login</string>
     <string name="email">ِEmail</string>
     <string name="username">Username</string>
     <string name="cancel">Cancel</string>
-    <string name="sentLink">Your Sign-in Link has been sent to your email</string>
+    <string name="loggedIn">You are logged in</string>
+    <string name="signedUp">You successfully signed up</string>
+    <string name="failedLogin">Unsuccessful login, Please check your info</string>
     <string name="password">Password</string>
     <string name="tempID">Template ID</string>
+    <string name="myChecklist">My Checklist</string>
+    <string name="myList">My List</string>
+    <string name="followed">Followed</string>
+    <string name="seen">Seen</string>
 </resources>

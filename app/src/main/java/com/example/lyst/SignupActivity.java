@@ -22,11 +22,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class SignupActivity extends AppCompatActivity {
 
     private Database database = Database.getInstance();
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        uid = getIntent().getStringExtra("uid");
     }
 
     public void signUp(View v) {
@@ -40,6 +42,38 @@ public class SignupActivity extends AppCompatActivity {
         final String username = usernameTextView.getText().toString();
         final String password = passwordTextView.getText().toString();
 
+        if (email.isEmpty()){
+            emailTextView.setError("Please fill this field");
+            return;
+        }
+        if (username.isEmpty()){
+            usernameTextView.setError("Please fill this field");
+            return;
+        }
+        if (password.isEmpty()){
+            passwordTextView.setError("Please fill this field");
+            return;
+        }
 
+        final Context context = this;
+
+        database.auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            database.db.collection("users").document(uid)
+                                    .update("Email", email);
+                            database.db.collection("users").document(uid)
+                                    .update("username", username);
+                            Toast.makeText(context, R.string.signedUp, Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }
+                }
+        );
+    }
+    public void close(View v){
+        finish();
     }
 }

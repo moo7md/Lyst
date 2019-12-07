@@ -50,10 +50,17 @@ public class Splash extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if(task.isSuccessful() && task.getResult().exists()) {
                             //open main
-                           Intent i = new Intent(context, MainActivity.class);
-                            i.putExtra("uid", uid);
-                            context.startActivity(i);
-                            finish();
+                            if(database.isLoggedIn()) {
+                                Intent i = new Intent(context, LoggedInUserActivity.class);
+                                i.putExtra("uid", uid);
+                                context.startActivity(i);
+                                finish();
+                            }else{
+                                Intent i = new Intent(context, MainActivity.class);
+                                i.putExtra("uid", uid);
+                                context.startActivity(i);
+                                finish();
+                            }
                         }else{
                             //put user in Firebase the open main
                             HashMap<String, Object> data = new HashMap<>();
