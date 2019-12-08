@@ -1,4 +1,4 @@
-package com.example.lyst;
+package com.example.lyst.Models;
 
 
 public class ChecklistItem {

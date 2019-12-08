@@ -1,10 +1,10 @@
-package com.example.lyst;
+package com.example.lyst.ViewHolders;
 
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
-import com.example.lyst.util.AttachmentTypes;
+import com.example.lyst.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

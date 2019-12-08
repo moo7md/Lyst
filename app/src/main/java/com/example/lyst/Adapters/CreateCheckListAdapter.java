@@ -1,8 +1,12 @@
-package com.example.lyst;
+package com.example.lyst.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.lyst.Models.ChecklistItem;
+import com.example.lyst.R;
+import com.example.lyst.ViewHolders.ChecklistItemCreateViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +15,13 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ChecklistCreateCheckListAdapter extends RecyclerView.Adapter {
+public class CreateCheckListAdapter extends RecyclerView.Adapter {
 
     private List<ChecklistItem> items;
 
     private ArrayList<ChecklistItemCreateViewHolder> viewHolders = new ArrayList<>();
 
-    public ChecklistCreateCheckListAdapter(List<ChecklistItem> _items) {
+    public CreateCheckListAdapter(List<ChecklistItem> _items) {
         items = _items;
     }
 

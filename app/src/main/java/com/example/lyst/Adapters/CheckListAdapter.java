@@ -1,19 +1,23 @@
-package com.example.lyst;
+package com.example.lyst.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.lyst.Models.ChecklistItem;
+import com.example.lyst.R;
+import com.example.lyst.ViewHolders.CheckListHolder;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CheclListAdapter extends RecyclerView.Adapter<CheckListHolder> {
+public class CheckListAdapter extends RecyclerView.Adapter<CheckListHolder> {
 
     private List<ChecklistItem> items;
 
-    public CheclListAdapter(List<ChecklistItem> items){
+    public CheckListAdapter(List<ChecklistItem> items){
         this.items = items;
     }
 

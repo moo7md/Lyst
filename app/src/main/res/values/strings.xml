@@ -30,5 +30,7 @@
     <string name="myList">My List</string>
     <string name="followed">Followed</string>
     <string name="seen">Seen</string>
+
+    <string name="placeholder">{Place Holder}</string>
     <string name="listID">List ID</string>
 </resources>

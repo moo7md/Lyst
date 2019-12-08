@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,12 +16,16 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import com.example.lyst.Adapters.CreateCheckListAdapter;
+import com.example.lyst.Models.*;
+import com.example.lyst.ViewHolders.ChecklistItemCreateViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateCheckListActivity extends AppCompatActivity {
 
-    ChecklistCreateCheckListAdapter adapter;
+    CreateCheckListAdapter adapter;
     List<ChecklistItem> items = new ArrayList<>();
     Database database;
 
@@ -31,7 +37,7 @@ public class CreateCheckListActivity extends AppCompatActivity {
         database = Database.getInstance();
 
         RecyclerView recyclerView = findViewById(R.id.create_recycler);
-        adapter = new ChecklistCreateCheckListAdapter(items);
+        adapter = new CreateCheckListAdapter(items);
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
 
@@ -40,6 +46,11 @@ public class CreateCheckListActivity extends AppCompatActivity {
     }
 
     public void AddItem(View view) {
+        items.add(new ChecklistItem("", "", ""));
+        _addItem();
+    }
+
+    private void _addItem() {
         items.add(new ChecklistItem("", "", ""));
         adapter.notifyDataSetChanged();
     }
@@ -68,8 +79,41 @@ public class CreateCheckListActivity extends AppCompatActivity {
                         }
                     }
             );
-        }else{
+        }else {
             Toast.makeText(this, "Please put some items", Toast.LENGTH_LONG).show();
+            _save();
         }
     }
+
+    public void _save() {
+        List<ChecklistItemCreateViewHolder> viewHolders = adapter.GetViewHolders();
+
+        for (ChecklistItemCreateViewHolder i : viewHolders) {
+            System.out.println(i.title.getText().toString());
+            System.out.println(i.description.getText().toString());
+            System.out.println("Position is: " + i.attachmentType.getCheckedRadioButtonId());
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.create_checklist_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()) {
+            case R.id.add_list_item:
+                _addItem();
+                break;
+            case R.id.save_checklist:
+                _save();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
