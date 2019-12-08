@@ -4,10 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lyst.Models.ChecklistItem;
+import com.example.lyst.Models.CheckListDoItem;
+import com.example.lyst.Models.CheckListTemplate;
+import com.example.lyst.Models.ChecklistTemplateItem;
 import com.example.lyst.R;
-import com.example.lyst.ViewHolders.CheckListHolder;
-import com.example.lyst.ViewHolders.ChecklistItemCreateViewHolder;
 import com.example.lyst.ViewHolders.ChecklistItemDoViewHolder;
 
 import java.util.ArrayList;
@@ -18,9 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoViewHolder> {
 
-    private List<ChecklistItem> items;
-
+    private CheckListTemplate template;
+    private ArrayList<CheckListDoItem> items;
     private ArrayList<ChecklistItemDoViewHolder> viewHolders = new ArrayList<>();
+
+    public DoCheckListAdapter (CheckListTemplate template) {
+        this.template = template;
+    }
 
     @NonNull
     @Override
@@ -36,7 +40,7 @@ public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoView
     @Override
     public void onBindViewHolder(@NonNull ChecklistItemDoViewHolder holder, int position) {
         if (!items.isEmpty()) {
-
+            holder.attachListeners();
         }
 
     }

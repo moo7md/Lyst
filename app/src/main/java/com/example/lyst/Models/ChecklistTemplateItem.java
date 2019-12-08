@@ -1,12 +1,12 @@
 package com.example.lyst.Models;
 
 
-public class ChecklistItem {
+public class ChecklistTemplateItem {
     private String title;
     private String desc;
     private String attachmentType;
 
-    public ChecklistItem(String title, String desc, String attachmentType) {
+    public ChecklistTemplateItem(String title, String desc, String attachmentType) {
         this.title = title;
         this.desc = desc;
         this.attachmentType = attachmentType;

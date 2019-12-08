@@ -58,7 +58,7 @@ public class Database {
         return auth.getCurrentUser();
     }
 
-    public Task<Void> addCheckListItems(ArrayList<ChecklistItem> items, String id){
+    public Task<Void> addCheckListItems(ArrayList<ChecklistTemplateItem> items, String id){
         HashMap<String, Object> data = new HashMap<>();
         data.put("items", items);
         return db.collection("items").document(id).set(data);

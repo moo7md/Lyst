@@ -26,7 +26,7 @@ import java.util.List;
 public class CreateCheckListActivity extends AppCompatActivity {
 
     CreateCheckListAdapter adapter;
-    List<ChecklistItem> items = new ArrayList<>();
+    List<ChecklistTemplateItem> items = new ArrayList<>();
     Database database;
 
     @Override
@@ -46,12 +46,12 @@ public class CreateCheckListActivity extends AppCompatActivity {
     }
 
     public void AddItem(View view) {
-        items.add(new ChecklistItem("", "", ""));
+        items.add(new ChecklistTemplateItem("", "", ""));
         _addItem();
     }
 
     private void _addItem() {
-        items.add(new ChecklistItem("", "", ""));
+        items.add(new ChecklistTemplateItem("", "", ""));
         adapter.notifyDataSetChanged();
     }
 
@@ -67,7 +67,7 @@ public class CreateCheckListActivity extends AppCompatActivity {
                 items.get(i).setDesc(holder.description.getText().toString());
                 i++;
             }
-            database.addCheckListItems((ArrayList<ChecklistItem>) items, listIDString).addOnCompleteListener(
+            database.addCheckListItems((ArrayList<ChecklistTemplateItem>) items, listIDString).addOnCompleteListener(
                     new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

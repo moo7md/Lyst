@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lyst.Models.ChecklistItem;
+import com.example.lyst.Models.ChecklistTemplateItem;
 import com.example.lyst.R;
 import com.example.lyst.ViewHolders.CheckListHolder;
 
@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CheckListAdapter extends RecyclerView.Adapter<CheckListHolder> {
 
-    private List<ChecklistItem> items;
+    private List<ChecklistTemplateItem> items;
 
-    public CheckListAdapter(List<ChecklistItem> items){
+    public CheckListAdapter(List<ChecklistTemplateItem> items){
         this.items = items;
     }
 
@@ -34,7 +34,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListHolder> {
     public void onBindViewHolder(@NonNull CheckListHolder holder, int position) {
         //do the stuff
         if (!items.isEmpty()) {
-            ChecklistItem item = items.get(position);
+            ChecklistTemplateItem item = items.get(position);
             holder.checkBox.setText(item.getTitle());
         }
     }

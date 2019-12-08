@@ -4,24 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lyst.Models.ChecklistItem;
+import com.example.lyst.Models.ChecklistTemplateItem;
 import com.example.lyst.R;
 import com.example.lyst.ViewHolders.ChecklistItemCreateViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CreateCheckListAdapter extends RecyclerView.Adapter {
 
-    private List<ChecklistItem> items;
+    private List<ChecklistTemplateItem> items;
 
     private ArrayList<ChecklistItemCreateViewHolder> viewHolders = new ArrayList<>();
 
-    public CreateCheckListAdapter(List<ChecklistItem> _items) {
+    public CreateCheckListAdapter(List<ChecklistTemplateItem> _items) {
         items = _items;
     }
 
@@ -46,7 +45,7 @@ public class CreateCheckListAdapter extends RecyclerView.Adapter {
     }
 
     public void AddItem() {
-        items.add(new ChecklistItem("T", "", ""));
+        items.add(new ChecklistTemplateItem("T", "", ""));
 //        notifyItemInserted(items.size()-1);
         notifyDataSetChanged();
     }

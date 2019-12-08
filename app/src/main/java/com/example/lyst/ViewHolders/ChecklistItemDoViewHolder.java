@@ -2,6 +2,8 @@ package com.example.lyst.ViewHolders;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
 
+    public CheckBox checkBox;
     public TextView title;
     public TextView description;
     public ImageView hasAttachment;
@@ -22,14 +25,39 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
 
     public ChecklistItemDoViewHolder(@NonNull View itemView) {
         super(itemView);
-        title = itemView.findViewById(R.id.taskTitle_textView);
-        description = itemView.findViewById(R.id.taskDesctiption_textView);
+        checkBox = itemView.findViewById(R.id.item_checkBox);
         hasAttachment = itemView.findViewById(R.id.hasAttachment_ImageView);
         addAttachment = itemView.findViewById(R.id.addAttachment_Button);
         deleteAttachment = itemView.findViewById(R.id.deleteAttachment_Button);
     }
 
-    private void attachListeners() {
+    public void attachListeners() {
+        checkBox.setOnCheckedChangeListener(new CheckboxListener());
+        addAttachment.setOnClickListener(new AddAttachmentListener());
+        deleteAttachment.setOnClickListener(new DeleteAttachmentListener());
+    }
 
+    class CheckboxListener implements CheckBox.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+        }
+    }
+
+    class AddAttachmentListener implements Button.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+
+        }
+    }
+
+    class DeleteAttachmentListener implements Button.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 }
