@@ -67,14 +67,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/deleteAttachment_Button"
-            style="@android:style/Widget.Button.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete Attachment"
-            app:layout_constraintStart_toEndOf="@+id/addAttachment_Button"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

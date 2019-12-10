@@ -1,6 +1,8 @@
 package com.example.lyst.Models;
 
 
+import com.example.lyst.util.AttachmentTypes;
+
 public class ChecklistTemplateItem {
     private String title;
     private String desc;
@@ -32,5 +34,9 @@ public class ChecklistTemplateItem {
 
     public void setAttachmentType(String attachmentType) {
         this.attachmentType = attachmentType;
+    }
+
+    public AttachmentTypes getAttachmentTypeEnum() {
+        return AttachmentTypes.valueOf(attachmentType);
     }
 }
