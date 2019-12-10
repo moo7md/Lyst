@@ -3,7 +3,7 @@ package com.example.lyst.Models;
 import java.util.ArrayList;
 
 public class CheckListTemplate {
-    String owner;
-    String ID;
-    ArrayList<ChecklistTemplateItem> tasks;
+    public String owner;
+    public String ID;
+    public ArrayList<ChecklistTemplateItem> tasks;
 }

@@ -40,7 +40,11 @@ public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoView
     @Override
     public void onBindViewHolder(@NonNull ChecklistItemDoViewHolder holder, int position) {
         if (!items.isEmpty()) {
+            ChecklistTemplateItem i = template.tasks.get(position);
+            holder.title.setText(i.getTitle());
+            holder.description.setText(i.getDesc());
             holder.attachListeners();
+
         }
 
     }

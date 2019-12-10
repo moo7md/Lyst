@@ -25,6 +25,9 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
 
     public ChecklistItemDoViewHolder(@NonNull View itemView) {
         super(itemView);
+
+        title = itemView.findViewById(R.id.taskTitle_textView);
+        description = itemView.findViewById(R.id.taskDesctiption_textView);
         checkBox = itemView.findViewById(R.id.item_checkBox);
         hasAttachment = itemView.findViewById(R.id.hasAttachment_ImageView);
         addAttachment = itemView.findViewById(R.id.addAttachment_Button);
