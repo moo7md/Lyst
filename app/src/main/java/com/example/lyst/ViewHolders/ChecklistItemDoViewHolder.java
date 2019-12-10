@@ -2,24 +2,16 @@ package com.example.lyst.ViewHolders;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.lyst.CreateCheckListActivity;
 import com.example.lyst.Models.ChecklistTemplateItem;
 import com.example.lyst.R;
 import com.example.lyst.util.AttachmentTypes;
-import com.example.lyst.util.dialogs.AttachImage;
-import com.example.lyst.util.dialogs.AttachPlaintext;
-import com.example.lyst.util.dialogs.AttachTimestamp;
 import com.example.lyst.util.dialogs.Dialogs;
 
 import androidx.annotation.NonNull;
@@ -33,6 +25,8 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
     public TextView description;
     public ImageView hasAttachment;
     public Button addAttachment;
+
+    Object attachment;
 
     public ChecklistItemDoViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -50,7 +44,8 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
 
     public void configure(ChecklistTemplateItem template, Activity activity) {
         this.activity = activity;
-        configureButton (template.getAttachmentTypeEnum());
+        configureButton(template.getAttachmentTypeEnum());
+        attachListeners();
     }
 
     private void configureButton(AttachmentTypes type) {
@@ -60,7 +55,7 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
                 hasAttachment.setVisibility(View.GONE);
                 break;
             case PLAINTEXT:
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this)));
+                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment)));
                 break;
             case IMAGE:
                 addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.ImageDialog(activity, this)));
@@ -74,6 +69,7 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
     public void setHasAttachment(boolean succeeded, Object attachment) {
 
     }
+
 
     class CheckboxListener implements CheckBox.OnCheckedChangeListener {
 

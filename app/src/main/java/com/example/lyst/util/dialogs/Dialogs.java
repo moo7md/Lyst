@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import com.example.lyst.R;
 import com.example.lyst.ViewHolders.ChecklistItemDoViewHolder;
@@ -21,17 +23,34 @@ public class Dialogs {
         return builder.create();
     }
 
-    public static AlertDialog PlaintextDialog(Activity activity, ChecklistItemDoViewHolder caller) {
+    public static AlertDialog PlaintextDialog(Activity activity, final ChecklistItemDoViewHolder caller, Object attachment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        builder.setView(inflater.inflate(R.layout.attach_plaintext_alert_dialog, null));
+        final View view = inflater.inflate(R.layout.attach_plaintext_alert_dialog, null);
+        final EditText field = view.findViewById(R.id.attach_text_editText);
 
+        if (attachment != null) field.setText((String) attachment);
 
+        builder.setView(view);
         builder.setNegativeButton("Cancel", null);
-        builder.setNeutralButton("Delete", null);
-        builder.setPositiveButton("Save", new AttachPlaintext(caller));
+
+        builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                caller.setHasAttachment(false, null);
+            }
+        });
+
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                caller.setHasAttachment(true, field.getText());
+            }
+        });
 
         return builder.create();
     }
