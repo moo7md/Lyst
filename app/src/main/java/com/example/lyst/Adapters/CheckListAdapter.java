@@ -35,7 +35,7 @@ public class CheckListAdapter extends RecyclerView.Adapter<CheckListHolder> {
         //do the stuff
         if (!items.isEmpty()) {
             ChecklistTemplateItem item = items.get(position);
-            holder.checkBox.setText(item.getTitle());
+            //holder.checkBox.setText(item.getTitle());
         }
     }
 

@@ -10,6 +10,7 @@ import com.example.lyst.ViewHolders.ChecklistItemCreateViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

@@ -1,6 +1,5 @@
 package com.example.lyst.Adapters;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import com.example.lyst.R;
 import com.example.lyst.ViewHolders.ChecklistItemDoViewHolder;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -22,11 +23,11 @@ public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoView
     private CheckListTemplate template;
     private ArrayList<CheckListDoItem> items;
     private ArrayList<ChecklistItemDoViewHolder> viewHolders = new ArrayList<>();
-    private Activity activity;
 
-    public DoCheckListAdapter (CheckListTemplate template, Activity activity) {
+    public DoCheckListAdapter (CheckListTemplate template) {
         this.template = template;
-        this.activity = activity;
+        this.items = new ArrayList<>(Collections.nCopies(template.tasks.size(),
+                new CheckListDoItem(false, null)));
     }
 
     @NonNull
@@ -44,10 +45,9 @@ public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoView
     public void onBindViewHolder(@NonNull ChecklistItemDoViewHolder holder, int position) {
         if (!items.isEmpty()) {
             ChecklistTemplateItem i = template.tasks.get(position);
-
             holder.title.setText(i.getTitle());
             holder.description.setText(i.getDesc());
-            holder.configure(i, activity);
+            holder.attachListeners();
 
         }
 
