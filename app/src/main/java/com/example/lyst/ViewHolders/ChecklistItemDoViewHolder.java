@@ -27,6 +27,7 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
     public Button addAttachment;
 
     Object attachment;
+    Boolean attached;
 
     public ChecklistItemDoViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -67,7 +68,8 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
     }
 
     public void setHasAttachment(boolean succeeded, Object attachment) {
-
+        this.attachment = attachment;
+        this.attached = succeeded;
     }
 
 
