@@ -3,6 +3,7 @@ package com.example.lyst;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.lyst.Models.*;
 
@@ -61,12 +62,30 @@ public class Database {
     public Task<Void> addCheckListItems(ArrayList<ChecklistTemplateItem> items, String id, String uid){
         HashMap<String, Object> data = new HashMap<>();
         data.put("items", items);
-        return db.collection("items").document(id+uid).set(data);
+        return db.collection("followed").document(id+uid).set(data);
     }
 
     public Task<Void> addChecklistTemp(ArrayList<ChecklistTemplateItem> items, String id) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("items", items);
         return db.collection("temp").document(id).set(data);
+    }
+
+    public Task<Void> updateUserInfo(String itemID, String uid) {
+        return db.collection("users").document(uid)
+                .update("temp", FieldValue.arrayUnion(itemID));
+    }
+    public Task<Void> deleteFollowed(String item, String uid) {
+        db.collection("followed").document(item+uid)
+                .delete();
+        return db.collection("users").document(uid)
+                .update("lists", FieldValue.arrayRemove(item+uid));
+    }
+
+    public Task<Void> deleteMyTemp(String item, String uid) {
+        db.collection("temp").document(item)
+                .delete();
+        return db.collection("users").document(uid)
+                .update("temp", FieldValue.arrayRemove(item));
     }
 }

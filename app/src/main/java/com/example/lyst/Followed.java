@@ -1,9 +1,11 @@
 package com.example.lyst;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -42,8 +44,17 @@ public class Followed extends Fragment {
         ListView lv = v.findViewById(R.id.followedList);
 
         lv.setAdapter(new ListAdapter(getContext(), R.layout.checklist_item,
-                (ArrayList<String>) itemIDs, uid));
+                (ArrayList<String>) itemIDs, uid, 1));
         getTemplates(lv);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(parent.getContext(), ListItem.class);
+                i.putExtra("uid", uid);
+                i.putExtra("itemID", itemIDs.get(position));
+                startActivity(i);
+            }
+        });
         return v;
     }
 

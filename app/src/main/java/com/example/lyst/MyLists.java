@@ -1,15 +1,18 @@
 package com.example.lyst;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.lyst.Adapters.ListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -17,7 +20,9 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class MyLists extends Fragment {
@@ -41,14 +46,15 @@ public class MyLists extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.my_lists, container, false);
         ListView lv = v.findViewById(R.id.myCheckListView);
+        ConstraintLayout c = v.findViewById(R.id.emptyUIInMyList);
 
         lv.setAdapter(new ListAdapter(getContext(), R.layout.checklist_item,
-                (ArrayList<String>) itemIDs, uid));
-        getTemplates(lv);
+                (ArrayList<String>) itemIDs, uid, 0, c));
+        getTemplates(lv, c);
         return v;
     }
 
-    private void getTemplates(final ListView lv) {
+    private void getTemplates(final ListView lv, final ConstraintLayout c) {
         database.db.collection("users").document(uid)
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -59,6 +65,11 @@ public class MyLists extends Fragment {
                     for(String s : stuff) {
                         itemIDs.add(s);
                         ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
+                    }
+                    if (itemIDs.size() == 0) {
+                        c.setVisibility(View.VISIBLE);
+                    }else{
+                        c.setVisibility(View.INVISIBLE);
                     }
                 }
             }

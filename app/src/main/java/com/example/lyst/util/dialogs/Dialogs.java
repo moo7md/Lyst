@@ -40,7 +40,7 @@ public class Dialogs {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                caller.setHasAttachment(false, null);
+                caller.setAttachment(false, null);
             }
         });
 
@@ -48,7 +48,7 @@ public class Dialogs {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                caller.setHasAttachment(true, field.getText());
+                caller.setAttachment(true, field.getText());
             }
         });
 

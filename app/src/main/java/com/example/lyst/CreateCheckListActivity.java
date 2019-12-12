@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.lyst.Adapters.*;
@@ -60,11 +61,14 @@ public class CreateCheckListActivity extends AppCompatActivity {
         if (listID.getText().toString().isEmpty()) {
             listID.setError("Please fill this field");
         }else if (items.size() > 0){
-            String listIDString = listID.getText().toString();
+            final String listIDString = listID.getText().toString();
             int i = 0;
             for (ChecklistItemCreateViewHolder holder : adapter.GetViewHolders()) {
                 items.get(i).setTitle(holder.title.getText().toString());
                 items.get(i).setDesc(holder.description.getText().toString());
+                int selectedBtnID = holder.attachmentType.getCheckedRadioButtonId();
+                RadioButton selectedBtn = holder.itemView.findViewById(selectedBtnID);
+                items.get(i).setAttachmentType(selectedBtn.getText().toString());
                 i++;
             }
             database.addChecklistTemp((ArrayList<ChecklistTemplateItem>) items, listIDString).addOnCompleteListener(
@@ -72,7 +76,7 @@ public class CreateCheckListActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                System.out.println("WORKED!");
+                                database.updateUserInfo(listIDString, uid);
                             } else {
                                 Log.i("FIRE", task.getException().getLocalizedMessage());
                             }

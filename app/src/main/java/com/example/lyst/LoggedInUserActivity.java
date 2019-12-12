@@ -24,7 +24,6 @@ import java.util.List;
 public class LoggedInUserActivity extends AppCompatActivity {
 
 
-    private List<CheckListTemplate> items;
     private Database database;
     private String uid;
     private SQLiteDatabase sqldb;
@@ -39,7 +38,6 @@ public class LoggedInUserActivity extends AppCompatActivity {
         sqldb = lsql.getWritableDatabase();
         setUID();
         database = Database.getInstance();
-        items = new ArrayList<>();
 
         LinearLayoutManager lm = new LinearLayoutManager(this);
         getItemsFromDatabase();
@@ -59,6 +57,9 @@ public class LoggedInUserActivity extends AppCompatActivity {
                     startActivity(i);
                 }else{
                     //open global items...
+                    Intent i = new Intent(v.getContext(), ListSearch.class);
+                    i.putExtra("uid", uid);
+                    startActivity(i);
                 }
             }
         });
