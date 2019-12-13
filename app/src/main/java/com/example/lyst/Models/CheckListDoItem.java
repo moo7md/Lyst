@@ -8,4 +8,12 @@ public class CheckListDoItem {
         this.state = state;
         this.attachment = attachment;
     }
+
+    public boolean isChecked() {
+        return state;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
 }

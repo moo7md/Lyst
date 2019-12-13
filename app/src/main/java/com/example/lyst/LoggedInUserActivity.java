@@ -2,7 +2,6 @@ package com.example.lyst;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,12 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.lyst.Models.CheckListTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoggedInUserActivity extends AppCompatActivity {
 
@@ -127,7 +124,7 @@ public class LoggedInUserActivity extends AppCompatActivity {
         btn.hide();
         page = 2;
         ((TextView)findViewById(R.id.title)).setText(R.string.seen);
-        Fragment myList = Seen.newInstance();
+        Fragment myList = Inbox.newInstance(uid);
         openFragment(myList);
     }
 

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListSearch"></activity>
+        <activity android:name=".ViewSubmission"></activity>
+        <activity android:name=".ListSearch" />
         <activity android:name=".ListItem" />
         <activity
             android:name=".Splash"
