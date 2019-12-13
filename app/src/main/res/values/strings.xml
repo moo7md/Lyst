@@ -36,6 +36,8 @@
     <string name="delete">Delete</string>
     <string name="search">Search Templates</string>
 
+    <string name="submission_header">Submitted on %s by %s.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

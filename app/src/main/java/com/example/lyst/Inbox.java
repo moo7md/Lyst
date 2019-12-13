@@ -48,7 +48,7 @@ public class Inbox extends Fragment {
         View v = inflater.inflate(R.layout.inbox, container, false);
 
         ListView lv = v.findViewById(R.id.myInboxListView);
-        adapter = new ListAdapter(getContext(), R.layout.checklist_item,
+        adapter = new ListAdapter(v.getContext(), R.layout.checklist_item,
                 (ArrayList<String>) itemIDs, uid, 1);
         lv.setAdapter(adapter);
         getInboxItems(lv);
@@ -66,6 +66,7 @@ public class Inbox extends Fragment {
         return v;
     }
 
+    // TODO: this
     private void getInboxItems(final ListView lv) {
 //        database.db.collection("users").document(uid)
 //                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

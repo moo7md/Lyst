@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lyst.Models.CheckListDo;
 import com.example.lyst.Models.CheckListDoItem;
 import com.example.lyst.Models.CheckListTemplate;
 import com.example.lyst.Models.ChecklistTemplateItem;
@@ -24,8 +25,9 @@ public class SubmissionAdapter extends RecyclerView.Adapter<SubmittedItemHolder>
 
     private Context context;
 
-    public SubmissionAdapter(ArrayList<CheckListDoItem> items, Context context) {
-        this.items.addAll(items);
+    public SubmissionAdapter(CheckListDo submission, CheckListTemplate template, Context context) {
+        this.items.addAll(submission.items);
+        this.template = template;
         this.context = context;
     }
 
