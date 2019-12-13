@@ -1,5 +1,8 @@
 package com.example.lyst.util;
 
 public enum  AttachmentTypes {
-    NONE, IMAGE, PLAINTEXT, TIMESTAMP
+    NONE,
+    IMAGE,
+    PLAINTEXT,
+    TIMESTAMP
 }

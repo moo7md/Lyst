@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public void signUpMain(View v) {
         //check if user is signed up
         //if signed up, show error and ask to logout
-        if (database.isLoggedIn()) {
+        if (!database.isLoggedIn()) {
             Intent i = new Intent(this, SignupActivity.class);
             i.putExtra("uid", uid);
             startActivity(i);
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public void loginMain(View v) {
         //check if user is signed up
         //if signed up, show error and ask to logout
-        if (database.isLoggedIn()) {
+        if (!database.isLoggedIn()) {
             Intent i = new Intent(this, LoginActivity.class);
             i.putExtra("uid", uid);
             startActivityForResult(i, 1);
@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 boolean loggedin = data.getBooleanExtra("loggedIn", false);
                 if (loggedin) {
                     //start logged in user activity
+                    Intent i = new Intent(this, LoggedInUserActivity.class);
+                    i.putExtra("uid", uid);
+                    startActivity(i);
                 }else{
                     //don't no nuthing...!
                 }
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void create(View view) {
         Intent i = new Intent(this, CreateCheckListActivity.class);
+        i.putExtra("uid", uid);
         startActivity(i);
     }
 }

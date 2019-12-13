@@ -37,6 +37,6 @@ public class ChecklistTemplateItem {
     }
 
     public AttachmentTypes getAttachmentTypeEnum() {
-        return AttachmentTypes.valueOf(attachmentType);
+        return AttachmentTypes.valueOf(attachmentType.toUpperCase());
     }
 }

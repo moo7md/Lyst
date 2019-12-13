@@ -27,10 +27,15 @@
     <string name="password">Password</string>
     <string name="tempID">Template ID</string>
     <string name="myChecklist">My Checklist</string>
-    <string name="myList">My List</string>
+    <string name="myList">My Lists</string>
     <string name="followed">Followed</string>
-    <string name="seen">Seen</string>
+    <string name="seen">Inbox</string>
 
     <string name="placeholder">{Place Holder}</string>
     <string name="listID">List ID</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search Templates</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

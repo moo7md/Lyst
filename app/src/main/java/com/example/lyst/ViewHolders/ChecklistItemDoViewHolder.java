@@ -67,9 +67,9 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
         }
     }
 
-    public void setHasAttachment(boolean succeeded, Object attachment) {
+    public void setAttachment(boolean attached, Object attachment) {
         this.attachment = attachment;
-        this.attached = succeeded;
+        this.attached = attached;
     }
 
 
