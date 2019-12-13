@@ -3,6 +3,8 @@ package com.example.lyst;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -51,6 +53,7 @@ public class ListSearch extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     private void search(String toString) {
@@ -78,5 +81,13 @@ public class ListSearch extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent data = new Intent();
+        data.putExtra("newFollowed", la.getNewFollowed());
+        setResult(Activity.RESULT_OK, data);
+        super.onBackPressed();
     }
 }

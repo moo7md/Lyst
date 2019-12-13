@@ -1,5 +1,7 @@
 package com.example.lyst;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -83,6 +85,9 @@ public class CreateCheckListActivity extends AppCompatActivity {
                         }
                     }
             );
+            Intent data = new Intent();
+            data.putExtra("itemID", listIDString);
+            setResult(Activity.RESULT_OK, data);
         }else {
             Toast.makeText(this, "Please put some items", Toast.LENGTH_LONG).show();
             _save();
@@ -116,6 +121,7 @@ public class CreateCheckListActivity extends AppCompatActivity {
                 break;
             case R.id.save_checklist:
                 _save();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

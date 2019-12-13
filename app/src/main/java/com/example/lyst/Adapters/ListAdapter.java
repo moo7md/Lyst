@@ -30,7 +30,7 @@ public class ListAdapter extends ArrayAdapter<String> {
              // 1 -> called from Followed
              // 2 -> called from inbox
              // 3 -> called from ListSearch
-    ArrayList<String> list;
+    ArrayList<String> list, newFollow;
     Database database;
     ConstraintLayout c;
 
@@ -41,6 +41,7 @@ public class ListAdapter extends ArrayAdapter<String> {
         this.list = list;
         this.type = type;
         database = Database.getInstance();
+        newFollow = new ArrayList<>();
     }
 
     public ListAdapter(Context context, int resource, ArrayList<String> list,
@@ -54,7 +55,7 @@ public class ListAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         final String item = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.checklist_item, parent,
@@ -96,6 +97,9 @@ public class ListAdapter extends ArrayAdapter<String> {
                                         break;
                                 }
                                 break;
+                            case R.id.followMenuItem:
+                                followAList(position);
+                                break;
                         }
                         return false;
                     }
@@ -109,10 +113,17 @@ public class ListAdapter extends ArrayAdapter<String> {
                 Intent i = new Intent(v.getContext(), ListItem.class);
                 i.putExtra("uid", uid);
                 i.putExtra("itemID", item);
+                i.putExtra("type", type);
                 v.getContext().startActivity(i);
             }
         });
         return convertView;
+    }
+
+    private void followAList(int position) {
+        String item = getItem(position);
+        newFollow.add(item);
+        database.follow(item, uid);
     }
 
     private void deleteFollowed(int position) {
@@ -146,4 +157,5 @@ public class ListAdapter extends ArrayAdapter<String> {
             c.setVisibility(View.INVISIBLE);
         }
     }
+    public ArrayList<String> getNewFollowed(){return newFollow;}
 }

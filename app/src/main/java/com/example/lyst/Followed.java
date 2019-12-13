@@ -26,7 +26,7 @@ public class Followed extends Fragment {
     private List<String> itemIDs;
     private String uid;
     private Database database = Database.getInstance();
-
+    private ListAdapter adapter;
 
     public Followed(String uid) {
         this.uid = uid;
@@ -42,9 +42,9 @@ public class Followed extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.followed, container, false);
         ListView lv = v.findViewById(R.id.followedList);
-
-        lv.setAdapter(new ListAdapter(getContext(), R.layout.checklist_item,
-                (ArrayList<String>) itemIDs, uid, 1));
+        adapter = new ListAdapter(getContext(), R.layout.checklist_item,
+                (ArrayList<String>) itemIDs, uid, 1);
+        lv.setAdapter(adapter);
         getTemplates(lv);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,6 +52,7 @@ public class Followed extends Fragment {
                 Intent i = new Intent(parent.getContext(), ListItem.class);
                 i.putExtra("uid", uid);
                 i.putExtra("itemID", itemIDs.get(position));
+                i.putExtra("type", 1);
                 startActivity(i);
             }
         });
@@ -73,6 +74,10 @@ public class Followed extends Fragment {
                 }
             }
         });
+    }
+
+    public void add(String item) {
+        adapter.add(item);
     }
 
     static Followed newInstance(String uid) {

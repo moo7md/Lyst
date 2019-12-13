@@ -1,10 +1,13 @@
 package com.example.lyst;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,6 +30,7 @@ public class LoggedInUserActivity extends AppCompatActivity {
     private Database database;
     private String uid;
     private SQLiteDatabase sqldb;
+    Fragment myList;
     private int page = 0;
 
     @Override
@@ -54,12 +58,15 @@ public class LoggedInUserActivity extends AppCompatActivity {
                 if (page == 0) {
                     Intent i = new Intent(v.getContext(), CreateCheckListActivity.class);
                     i.putExtra("uid", uid);
-                    startActivity(i);
+                    i.putExtra("type", page);
+                    startActivityForResult(i, page);
+//                    ((MyLists)getSupportFragmentManager().findFragmentById(R.id.myListFragment)).add("");
                 }else{
                     //open global items...
                     Intent i = new Intent(v.getContext(), ListSearch.class);
                     i.putExtra("uid", uid);
-                    startActivity(i);
+                    i.putExtra("type", page);
+                    startActivityForResult(i, page);
                 }
             }
         });
@@ -93,18 +100,22 @@ public class LoggedInUserActivity extends AppCompatActivity {
         database.db.collection("items").whereEqualTo("owner", uid);
     }
     public void showMyList(View v) {
-        if (page == 0) return;
-        page = 0;
         FloatingActionButton btn = findViewById(R.id.addBtn);
+        if (page == 0){
+            return;
+        }
+        page = 0;
         btn.show();
         ((TextView)findViewById(R.id.title)).setText(R.string.myList);
-        Fragment myList = MyLists.newInstance(uid);
+        myList = MyLists.newInstance(uid);
         openFragment(myList);
     }
     public void showFollowed(View v) {
-        if (page == 1) return;
-        page = 1;
         FloatingActionButton btn = findViewById(R.id.addBtn);
+        if (page == 1) {
+            return;
+        }
+        page = 1;
         btn.show();
         ((TextView)findViewById(R.id.title)).setText(R.string.followed);
         Fragment myList = Followed.newInstance(uid);
@@ -125,5 +136,26 @@ public class LoggedInUserActivity extends AppCompatActivity {
         t.replace(R.id.box, myList);
         t.addToBackStack(null);
         t.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK && data != null) {
+            switch (requestCode) {
+                case 0:
+                    String item = data.getStringExtra("itemID");
+                    ((MyLists) getSupportFragmentManager().
+                            findFragmentById(R.id.box)).add(item);
+                    break;
+                case 1:
+                    ArrayList<String> newFollowed = data.getStringArrayListExtra("newFollowed");
+                    for (String s : newFollowed) {
+                        ((Followed) getSupportFragmentManager().
+                                findFragmentById(R.id.box)).add(s);
+                    }
+                    break;
+            }
+        }
     }
 }

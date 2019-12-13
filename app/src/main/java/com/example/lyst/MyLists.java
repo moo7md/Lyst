@@ -1,18 +1,15 @@
 package com.example.lyst;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.lyst.Adapters.ListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -22,13 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public class MyLists extends Fragment {
 
     private List<String> itemIDs;
     private String uid;
+    private ListAdapter adapter;
     private Database database = Database.getInstance();
 
     public MyLists(String uid) {
@@ -47,9 +44,9 @@ public class MyLists extends Fragment {
         View v = inflater.inflate(R.layout.my_lists, container, false);
         ListView lv = v.findViewById(R.id.myCheckListView);
         ConstraintLayout c = v.findViewById(R.id.emptyUIInMyList);
-
-        lv.setAdapter(new ListAdapter(getContext(), R.layout.checklist_item,
-                (ArrayList<String>) itemIDs, uid, 0, c));
+        adapter = new ListAdapter(getContext(), R.layout.checklist_item,
+                (ArrayList<String>) itemIDs, uid, 0, c);
+        lv.setAdapter(adapter);
         getTemplates(lv, c);
         return v;
     }
@@ -74,6 +71,9 @@ public class MyLists extends Fragment {
                 }
             }
         });
+    }
+    public void add(String item) {
+        adapter.add(item);
     }
 
     public static MyLists newInstance(String uid) {
