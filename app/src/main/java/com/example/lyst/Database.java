@@ -8,6 +8,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.lyst.Models.*;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,5 +128,11 @@ public class Database {
     public void markChecked(CheckListDo item) {
         db.collection("submission").document(item.ListID+item.submitter)
                 .set(item);
+    }
+    public Task<QuerySnapshot> getInbox(String uid){
+         return db.collection("submission").whereEqualTo("owner", uid).get();
+    }
+    public Task<DocumentSnapshot> getSub(String listID){
+        return db.collection("submission").document(listID).get();
     }
 }

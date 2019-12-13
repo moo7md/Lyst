@@ -95,6 +95,7 @@ public class ListItem extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             updateMarks(owner, tasks);
+                            finish();
                         }
                     });
                 }else{

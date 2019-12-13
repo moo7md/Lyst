@@ -61,7 +61,7 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
                 break;
             case PLAINTEXT:
                 items.get(position).attchmentType = AttachmentTypes.PLAINTEXT.name();
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment, position)));
+                //addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment, position)));
                 break;
             case IMAGE:
                 items.get(position).attchmentType = AttachmentTypes.IMAGE.name();
@@ -69,7 +69,7 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
                 break;
             case TIMESTAMP:
                 items.get(position).attchmentType = AttachmentTypes.TIMESTAMP.name();
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.TimestampDialog(activity, this, position)));
+                //addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.TimestampDialog(activity, this, position)));
                 break;
         }
     }

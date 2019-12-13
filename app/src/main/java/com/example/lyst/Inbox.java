@@ -9,12 +9,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.lyst.Adapters.ListAdapter;
-import com.example.lyst.Adapters.SubmissionAdapter;
-import com.example.lyst.Models.CheckListDoItem;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +21,16 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 public class Inbox extends Fragment {
 
     private Database database = Database.getInstance();
-    private ListAdapter adapter;
+    private ArrayAdapter<String> adapter;
     private String uid;
     private List<String> itemIDs;
+    private List<String> listTitles = new ArrayList<>();
+    private List<String> usernames = new ArrayList<>();
 
     private Inbox(String uid) {
         this.uid = uid;
@@ -48,8 +48,8 @@ public class Inbox extends Fragment {
         View v = inflater.inflate(R.layout.inbox, container, false);
 
         ListView lv = v.findViewById(R.id.myInboxListView);
-        adapter = new ListAdapter(v.getContext(), R.layout.checklist_item,
-                (ArrayList<String>) itemIDs, uid, 1);
+        adapter = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_list_item_1,
+                android.R.id.text1);
         lv.setAdapter(adapter);
         getInboxItems(lv);
 
@@ -59,6 +59,8 @@ public class Inbox extends Fragment {
                 Intent i = new Intent(parent.getContext(), ViewSubmission.class);
                 i.putExtra("uid", uid);
                 i.putExtra("submissionId", itemIDs.get(position));
+                i.putExtra("name", usernames.get(position));
+                i.putExtra("title", listTitles.get(position));
                 startActivity(i);
             }
         });
@@ -68,20 +70,33 @@ public class Inbox extends Fragment {
 
     // TODO: this
     private void getInboxItems(final ListView lv) {
-//        database.db.collection("users").document(uid)
-//                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful()) {
-//                    ArrayList<String> stuff = (ArrayList<String>) task.getResult().get("lists");
-//                    assert stuff != null;
-//                    for(String s : stuff) {
-//                        itemIDs.add(s);
-//                        ((ArrayAdapter) lv.getAdapter()).notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//        });
+        database.getInbox(uid).addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for(final DocumentSnapshot ds : task.getResult().getDocuments()) {
+                        database.db.collection("users").document(ds.getString("submitter"))
+                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                String name = documentSnapshot.getString("name");
+                                if (name.isEmpty()) {
+                                    adapter.add("Anonymous submitted " + ds.getString("ListID").replace(uid, ""));
+                                    itemIDs.add(ds.getString("ListID"));
+                                    listTitles.add(ds.getString("ListID").replace(uid, ""));
+                                    usernames.add("Anonymous");
+                                }else{
+                                    adapter.add(name+ " submitted " + ds.getString("ListID").replace(uid, ""));
+                                    itemIDs.add(ds.getString("ListID"));
+                                    listTitles.add(ds.getString("ListID").replace(uid, ""));
+                                    usernames.add(name);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     static Inbox newInstance(String uid) {
