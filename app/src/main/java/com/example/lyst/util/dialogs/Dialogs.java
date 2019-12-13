@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.lyst.Adapters.DoCheckListAdapter;
 import com.example.lyst.R;
 import com.example.lyst.ViewHolders.ChecklistItemDoViewHolder;
 
@@ -23,11 +24,10 @@ public class Dialogs {
         builder.setNeutralButton("Attach", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.putExtra("pos", position);
-                activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PHOTO);
+                Intent i = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                i.putExtra("pos", position);
+                activity.startActivityForResult(i, PICK_PHOTO);
             }
         });
         builder.setNegativeButton("Cancel", null);

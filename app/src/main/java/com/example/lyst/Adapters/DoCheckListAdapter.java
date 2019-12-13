@@ -52,7 +52,7 @@ public class DoCheckListAdapter extends RecyclerView.Adapter<ChecklistItemDoView
             holder.title.setText(i.getTitle());
             holder.description.setText(i.getDesc());
             holder.attachListeners();
-            holder.configure(i, parent, position);
+            holder.configure(i, parent, position, items);
             holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

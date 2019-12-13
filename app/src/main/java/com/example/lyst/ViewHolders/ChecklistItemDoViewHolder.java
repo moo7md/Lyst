@@ -9,10 +9,14 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.lyst.Adapters.DoCheckListAdapter;
+import com.example.lyst.Models.CheckListDoItem;
 import com.example.lyst.Models.ChecklistTemplateItem;
 import com.example.lyst.R;
 import com.example.lyst.util.AttachmentTypes;
 import com.example.lyst.util.dialogs.Dialogs;
+
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,25 +47,28 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
         checkBox.setOnCheckedChangeListener(new CheckboxListener());
     }
 
-    public void configure(ChecklistTemplateItem template, Activity activity, int position) {
+    public void configure(ChecklistTemplateItem template, Activity activity, int position, ArrayList<CheckListDoItem> adapter) {
         this.activity = activity;
-        configureButton(template.getAttachmentTypeEnum(), position);
+        configureButton(template.getAttachmentTypeEnum(), position, adapter);
         attachListeners();
     }
 
-    private void configureButton(AttachmentTypes type, int position) {
+    private void configureButton(AttachmentTypes type, int position, ArrayList<CheckListDoItem> items) {
         switch (type) {
             case NONE:
                 addAttachment.setVisibility(View.GONE);
                 hasAttachment.setVisibility(View.GONE);
                 break;
             case PLAINTEXT:
+                items.get(position).attchmentType = AttachmentTypes.PLAINTEXT.name();
                 addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment, position)));
                 break;
             case IMAGE:
+                items.get(position).attchmentType = AttachmentTypes.IMAGE.name();
                 addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.ImageDialog(activity, this, position)));
                 break;
             case TIMESTAMP:
+                items.get(position).attchmentType = AttachmentTypes.TIMESTAMP.name();
                 addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.TimestampDialog(activity, this, position)));
                 break;
         }

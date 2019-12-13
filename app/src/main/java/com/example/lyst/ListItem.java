@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -37,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
@@ -135,38 +137,44 @@ public class ListItem extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         //get the data back for pictures
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == Dialogs.PICK_PHOTO) {
+            System.out.println(requestCode+" "+data.getData());
+            if (requestCode == Dialogs.PICK_PHOTO && data.getData() != null) {
                 //get the bitmap of the picked image
-                Bitmap image = data.getExtras().getParcelable("data");
-                final int pos = data.getIntExtra("pos", 0);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] bytes = baos.toByteArray();
-                final StorageReference ref = storage.child("Images").child(itemID);
-                UploadTask uploadTask = ref.putBytes(bytes);
+                Bitmap image = null;
+                try {
+                    image = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+                    final int pos = data.getIntExtra("pos", 0);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] bytes = baos.toByteArray();
+                    final StorageReference ref = storage.child("Images").child(itemID);
+                    UploadTask uploadTask = ref.putBytes(bytes);
 
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
 
-                        // Continue with the task to get the download URL
-                        return ref.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            Uri downloadUri = task.getResult();
-                            adapter.items.get(pos).attachment = downloadUri.toString();
-                        } else {
-                            // Handle failures
-                            // ...
+                            // Continue with the task to get the download URL
+                            return ref.getDownloadUrl();
                         }
-                    }
-                });
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                adapter.items.get(pos).attachment = downloadUri.toString();
+                            } else {
+                                // Handle failures
+                                // ...
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
