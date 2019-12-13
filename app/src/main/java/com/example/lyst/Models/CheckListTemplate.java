@@ -9,9 +9,9 @@ public class CheckListTemplate {
 
     public CheckListTemplate(){}
 
-    public CheckListTemplate(String owner, String itemID, ArrayList<ChecklistTemplateItem> tasks) {
+    public CheckListTemplate(String owner, String listId, ArrayList<ChecklistTemplateItem> tasks) {
         this.owner = owner;
-        this.ID = itemID;
+        this.ID = listId;
         this.tasks = tasks;
     }
 }
