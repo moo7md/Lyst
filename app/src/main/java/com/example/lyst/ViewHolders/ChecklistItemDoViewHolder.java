@@ -43,26 +43,26 @@ public class ChecklistItemDoViewHolder  extends RecyclerView.ViewHolder {
         checkBox.setOnCheckedChangeListener(new CheckboxListener());
     }
 
-    public void configure(ChecklistTemplateItem template, Activity activity) {
+    public void configure(ChecklistTemplateItem template, Activity activity, int position) {
         this.activity = activity;
-        configureButton(template.getAttachmentTypeEnum());
+        configureButton(template.getAttachmentTypeEnum(), position);
         attachListeners();
     }
 
-    private void configureButton(AttachmentTypes type) {
+    private void configureButton(AttachmentTypes type, int position) {
         switch (type) {
             case NONE:
                 addAttachment.setVisibility(View.GONE);
                 hasAttachment.setVisibility(View.GONE);
                 break;
             case PLAINTEXT:
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment)));
+                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.PlaintextDialog(activity, this, attachment, position)));
                 break;
             case IMAGE:
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.ImageDialog(activity, this)));
+                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.ImageDialog(activity, this, position)));
                 break;
             case TIMESTAMP:
-                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.TimestampDialog(activity, this)));
+                addAttachment.setOnClickListener(new AddAttachmentListener(Dialogs.TimestampDialog(activity, this, position)));
                 break;
         }
     }

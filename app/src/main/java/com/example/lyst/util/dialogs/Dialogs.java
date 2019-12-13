@@ -13,25 +13,20 @@ import com.example.lyst.ViewHolders.ChecklistItemDoViewHolder;
 
 public class Dialogs {
 
-    final static int PICK_PHOTO = 10;
+    public final static int PICK_PHOTO = 10;
 
-    public static AlertDialog ImageDialog(final Activity activity, ChecklistItemDoViewHolder caller) {
+    public static AlertDialog ImageDialog(final Activity activity, ChecklistItemDoViewHolder caller, final int position) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setMessage("Attach your image here");
-        builder.setPositiveButton("Done", new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //upload to firebase...
-            }
-        });
         builder.setNeutralButton("Attach", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.putExtra("pos", position);
                 activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PHOTO);
             }
         });
@@ -40,7 +35,7 @@ public class Dialogs {
         return builder.create();
     }
 
-    public static AlertDialog PlaintextDialog(Activity activity, final ChecklistItemDoViewHolder caller, Object attachment) {
+    public static AlertDialog PlaintextDialog(Activity activity, final ChecklistItemDoViewHolder caller, Object o, Object attachment) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -72,7 +67,7 @@ public class Dialogs {
         return builder.create();
     }
 
-    public static AlertDialog TimestampDialog(Activity activity, ChecklistItemDoViewHolder caller) {
+    public static AlertDialog TimestampDialog(Activity activity, ChecklistItemDoViewHolder caller, int position) {
 
         return null;
     }

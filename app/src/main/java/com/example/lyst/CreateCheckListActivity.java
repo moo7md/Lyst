@@ -73,7 +73,7 @@ public class CreateCheckListActivity extends AppCompatActivity {
                 items.get(i).setAttachmentType(selectedBtn.getText().toString());
                 i++;
             }
-            database.addChecklistTemp((ArrayList<ChecklistTemplateItem>) items, listIDString).addOnCompleteListener(
+            database.addChecklistTemp((ArrayList<ChecklistTemplateItem>) items, listIDString, uid).addOnCompleteListener(
                     new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

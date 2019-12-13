@@ -73,9 +73,10 @@ public class Database {
         return db.collection("followed").document(id + uid).set(data);
     }
 
-    public Task<Void> addChecklistTemp(ArrayList<ChecklistTemplateItem> items, String id) {
+    public Task<Void> addChecklistTemp(ArrayList<ChecklistTemplateItem> items, String id, String uid) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("items", items);
+        data.put("owner", uid);
         return db.collection("temp").document(id).set(data);
     }
 
@@ -121,5 +122,10 @@ public class Database {
                 }
             }
         });
+    }
+
+    public void markChecked(CheckListDo item) {
+        db.collection("submission").document(item.ListID+item.submitter)
+                .set(item);
     }
 }

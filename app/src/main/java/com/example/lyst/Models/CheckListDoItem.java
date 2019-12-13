@@ -1,12 +1,16 @@
 package com.example.lyst.Models;
 
-public class CheckListDoItem {
-    private boolean state;
-    private String attachment;
+import com.example.lyst.util.AttachmentTypes;
 
-    public CheckListDoItem(boolean state, String attachment) {
+public class CheckListDoItem {
+    public boolean state;
+    public String attachment;
+    public String attchmentType;
+
+    public CheckListDoItem(boolean state, String attachment, AttachmentTypes type) {
         this.state = state;
         this.attachment = attachment;
+        this.attchmentType = type.name();
     }
 
     public boolean isChecked() {

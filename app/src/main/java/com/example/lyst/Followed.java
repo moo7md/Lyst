@@ -25,16 +25,15 @@ public class Followed extends Fragment {
 
     private List<String> itemIDs;
     private String uid;
-    private Database database = Database.getInstance();
+    private Database database;
     private ListAdapter adapter;
 
-    public Followed(String uid) {
-        this.uid = uid;
-        itemIDs = new ArrayList<>();
-    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        itemIDs = new ArrayList<>();
+        database = Database.getInstance();
+        uid = getArguments().getString("uid");
     }
 
     @Nullable
@@ -83,8 +82,8 @@ public class Followed extends Fragment {
     static Followed newInstance(String uid) {
 
         Bundle args = new Bundle();
-
-        Followed fragment = new Followed(uid);
+        args.putString("uid", uid);
+        Followed fragment = new Followed();
         fragment.setArguments(args);
         return fragment;
     }

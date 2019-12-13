@@ -26,16 +26,19 @@ public class MyLists extends Fragment {
     private List<String> itemIDs;
     private String uid;
     private ListAdapter adapter;
-    private Database database = Database.getInstance();
+    private Database database;
 
-    public MyLists(String uid) {
-        this.uid = uid;
-        itemIDs = new ArrayList<>();
-    }
+//    private MyLists(String uid) {
+//        this.uid = uid;
+//        itemIDs = new ArrayList<>();
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        uid = getArguments().getString("uid");
+        itemIDs = new ArrayList<>();
+        database = Database.getInstance();
     }
 
     @Nullable
@@ -79,8 +82,8 @@ public class MyLists extends Fragment {
     public static MyLists newInstance(String uid) {
 
         Bundle args = new Bundle();
-
-        MyLists fragment = new MyLists(uid);
+        args.putString("uid", uid);
+        MyLists fragment = new MyLists();
         fragment.setArguments(args);
         return fragment;
     }
